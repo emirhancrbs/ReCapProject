@@ -13,6 +13,6 @@ namespace DataAccess.Abstract
         void Add(Car car);
         void Delete(Car car);
         void Update(Car car);
-        List<Car> GetById(int carId);
+        Car GetById(int carId);
     }
 }

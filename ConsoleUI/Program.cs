@@ -21,10 +21,7 @@ namespace ConsoleUI
                     car.Description+"\n------------------------------\n");
             }
             Console.WriteLine("GET BY ID");
-            foreach (var item in carManager.GetById(2))
-            {
-                Console.WriteLine("Id : "+item.Id+" Description : "+ item.Description+"\n");
-            }
+            Console.WriteLine(carManager.GetById(4).Id);
             carManager.Delete(car1);
             Car car2 = new Car() { Id = 3, BrandId = 55, Description = "Güncellendi!", ColorId = 12, DailyPrice = 900, ModelYear = 2024 };
             carManager.Update(car2);
