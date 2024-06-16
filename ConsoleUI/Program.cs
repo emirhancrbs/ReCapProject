@@ -9,22 +9,28 @@ namespace ConsoleUI
     {
         static void Main(string[] args)
         {
-            //CarTest();
-            CarManager carManager = new CarManager(new EfCarDal());
-            foreach (var car in carManager.GetCarDetail())
-            {
-                Console.WriteLine("{0} - {1} - {2} - {3} - {4} ",car.CarId,car.ColorName,car.BrandName,car.DailyPrice,car.Description);
-            }
+            CarTest();
+            //CarDetailTest();
 
+        }
+
+        private static void CarDetailTest()
+        {
+            CarManager carManager = new CarManager(new EfCarDal());
+            var result = carManager.GetCarDetail();
+            foreach (var car in result.Data)
+            {
+                Console.WriteLine("{0} - {1} - {2} - {3} - {4} ", car.CarId, car.ColorName, car.BrandName, car.DailyPrice, car.Description);
+            }
+            Console.WriteLine(result.Message);
         }
 
         private static void CarTest()
         {
             CarManager carManager = new CarManager(new EfCarDal());
-            Car car1 = new Car() { CarId = 11, BrandId = 3, ColorId = 2, DailyPrice = 200, Description = "Porshe911", ModelYear = 2022 };
+            Car car1 = new Car() {  BrandId = 3, ColorId = 2, DailyPrice = 200, Description = "Porshe911", ModelYear = 2022 };
             carManager.Add(car1);
-
-            foreach (var car in carManager.GetAll())
+            foreach (var car in carManager.GetAll().Data)
             {
                 Console.WriteLine("Id : " + car.CarId + " Color Id : " +
                     car.ColorId + " Brand Id : " +
@@ -33,11 +39,12 @@ namespace ConsoleUI
                     car.Description + "\n------------------------------\n");
             }
             Console.WriteLine("GET BY ID");
-            Console.WriteLine(carManager.GetById(4).CarId);
-            carManager.Delete(car1);
-            Car car2 = new Car() { CarId = 3, BrandId = 55, Description = "Güncellendi!", ColorId = 12, DailyPrice = 900, ModelYear = 2024 };
-            carManager.Update(car2);
-            foreach (var car in carManager.GetAll())
+            Console.WriteLine(carManager.GetById(4).Data.CarId);
+            int deletedcar=Convert.ToInt32( Console.ReadLine());
+            carManager.DeleteById(deletedcar);
+            Car car2 = new Car() { CarId = 3, BrandId = 7, Description = "Güncellendi!", ColorId = 7, DailyPrice = 9700, ModelYear = 2024 };
+            Console.WriteLine(carManager.Update(car2).Message);
+            foreach (var car in carManager.GetAll().Data)
             {
                 Console.WriteLine("Id : " + car.CarId + " Color Id : " +
                     car.ColorId + " Brand Id : " +
