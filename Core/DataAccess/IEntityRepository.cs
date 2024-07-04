@@ -3,12 +3,12 @@ using System.Linq.Expressions;
 
 namespace Core.DataAccess
 {
-    public interface IEntityRepository<T> where T : class, IEntity, new()
+    public interface IEntityRepository<TEntity> where TEntity : class, IEntity, new()
     {
-        List<T> GetAll(Expression<Func<T, bool>> filter = null);
-        T Get(Expression<Func<T, bool>> filter);
-        void Add(T entity);
-        void Delete(T entity);
-        void Update(T entity);
+        List<TEntity> GetAll(Expression<Func<TEntity, bool>> filter = null);
+        TEntity Get(Expression<Func<TEntity, bool>> filter);
+        void Add(TEntity entity);
+        void Delete(TEntity entity);
+        void Update(TEntity entity);
     }
 }

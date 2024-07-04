@@ -14,5 +14,6 @@ namespace Business.Constants
         public static string Read = "Read successful";
         public static string CarError = "Daily Price must be greater than 0 and description must be greater than 2 characters.";
         public static string BrandError = "Brand name is 2 characters in small pieces because the transaction failed.";
+        public static string RentalError = "The car was not delivered";
     }
 } 
