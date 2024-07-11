@@ -25,6 +25,11 @@ namespace ConsoleUI
             {
                 Console.WriteLine("{0}|{1}|{2}|{3}|{4}", rent.RentalId, rent.CarId, rent.CustomerId, rent.RentDate, rent.ReturnDate);
             }
+            Console.WriteLine("---------------------------------------");
+            foreach (var rentalDetail in rentalManager.GetRentalDetail().Data)
+            {
+                Console.WriteLine("{0}--{1}--{2}--{3}", rentalDetail.RentalId,rentalDetail.CustomerName,rentalDetail.CarBrand,rentalDetail.CarDescription);
+            }
         }
 
         private static void UserTest()
