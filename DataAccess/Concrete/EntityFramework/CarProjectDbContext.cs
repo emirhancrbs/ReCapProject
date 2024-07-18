@@ -12,7 +12,7 @@ namespace DataAccess.Concrete.EntityFramework
     {
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlServer(@"Server=DESKTOP-FAA6MTS;Database=CarProjectDb;Trusted_Connection=true;TrustServerCertificate=True;");
+            optionsBuilder.UseSqlServer(@"Server=SERO;Database=CarProjectDb;Trusted_Connection=true;TrustServerCertificate=True;");
         }
         public DbSet<Car> Cars { get; set; }
         public DbSet<Color> Colors { get; set; }
