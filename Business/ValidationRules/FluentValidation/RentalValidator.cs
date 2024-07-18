@@ -1,4 +1,5 @@
-﻿using Entities.Concrete;
+﻿using DataAccess.Abstract;
+using Entities.Concrete;
 using FluentValidation;
 using System;
 using System.Collections.Generic;
@@ -12,10 +13,11 @@ namespace Business.ValidationRules.FluentValidation
     {
         public RentalValidator()
         {
-            RuleFor(r => r.RentDate).GreaterThanOrEqualTo(DateTime.Now);
+            RuleFor(r => r.RentDate).GreaterThanOrEqualTo(DateTime.Today);
             RuleFor(r => r.RentDate).NotNull();
-            RuleFor(r => r.ReturnDate).GreaterThanOrEqualTo(r => r.RentDate);
-            RuleFor(r=>r.ReturnDate).GreaterThanOrEqualTo(DateTime.Now);
+
+            RuleFor(r=>r.ReturnDate).GreaterThan(r => r.RentDate);
+            RuleFor(r=>r.ReturnDate).NotNull();
         }
     }
 }

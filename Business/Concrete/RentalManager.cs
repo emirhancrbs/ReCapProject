@@ -25,10 +25,9 @@ namespace Business.Concrete
         [ValidationAspect(typeof(RentalValidator))]
         public IResult Add(Rental rental)
         {
-            if (_rentalDal.CheckRental(rental.CarId)) 
+            if (_rentalDal.CheckRental(rental))
             {
-                
-                return new ErrorResult(); 
+                return new ErrorResult("araba teslim edilmemiş");
             }
             _rentalDal.Add(rental);
             return new SuccessResult(Messages.Added);
@@ -60,10 +59,6 @@ namespace Business.Concrete
         {
             var rent = _rentalDal.Get(r=>r.RentalId==rentalId);
             if (rent == null) 
-            {
-                return new ErrorResult();
-            }
-            if (rent.ReturnDate != null)
             {
                 return new ErrorResult();
             }

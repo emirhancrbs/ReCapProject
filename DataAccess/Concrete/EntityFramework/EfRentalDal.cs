@@ -12,14 +12,14 @@ namespace DataAccess.Concrete.EntityFramework
 {
     public class EfRentalDal : EfEntityRepositoryBase<Rental, CarProjectDbContext>, IRentalDal
     {
-        public bool CheckRental(int carId)
+        public bool CheckRental(Rental rental)
         {
             using (CarProjectDbContext context = new CarProjectDbContext())
             {
-                var result = from rental in context.Rentals
-                             where rental.CarId == carId &&
-                             rental.ReturnDate == null
-                             select rental;
+                var result = from r in context.Rentals
+                             where r.CarId == rental.CarId &&
+                             r.ReturnDate >= rental.RentDate
+                             select r;
                 return result.Any();
             }
         }
