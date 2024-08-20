@@ -13,18 +13,30 @@ namespace DataAccess.Concrete.EntityFramework
         {
             using (CarProjectDbContext context = new CarProjectDbContext())
             {
+                
                 var result = from c in context.Cars
+
                              join co in context.Colors
                              on c.ColorId equals co.ColorId
+
                              join b in context.Brands
-                             on c.BrandId equals b.BrandId
-                             select new CarDetailDto 
-                             { 
-                                CarId = c.CarId,
-                                BrandName=b.BrandName,
-                                ColorName=co.ColorName,
-                                DailyPrice=c.DailyPrice,
-                                Description=c.Description
+                             on c.BrandId equals b.BrandId into carBrand
+                             from cb in carBrand.DefaultIfEmpty()
+
+                             join image in context.CarImages
+                             on c.CarId equals image.CarId into carImages
+                             from ci in carImages.DefaultIfEmpty()
+
+                             select new CarDetailDto
+                             {
+                                 CarId = c.CarId,
+                                 BrandName = cb.BrandName,
+                                 ColorName = co.ColorName,
+                                 DailyPrice = c.DailyPrice,
+                                 Description = c.Description,
+                                 ImagePaths = ci != null && ci.ImagePath != null
+                                                    ? new List<string> { ci.ImagePath}
+                                                        : new List<string> { "default.jpg" }
                              };
                 return result.ToList();
             }
